@@ -1,14 +1,18 @@
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import icon from "../assets/task.png";
 import Search from "./Search";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import GridViewIcon from "@mui/icons-material/GridView";
-function Header() {
-  const [list, setList] = useState(true);
+function Header({list,setList,smallScreen}:{list:boolean, setList:Function, smallScreen:boolean}) {
+ 
   const [showSearch, setShowSearch] = useState(false);
-  const smallScreen = useMediaQuery("(max-width:600px)");
+ 
+
+  useEffect(()=>{
+    smallScreen&& setList(true);
+  },[smallScreen,setList])
 
   return (
     <Box
@@ -48,7 +52,7 @@ function Header() {
           mr: 1,
         }}
       >
-        <IconButton
+        {!smallScreen&&<IconButton
           onClick={() => {
             setList(!list);
           }}
@@ -58,7 +62,7 @@ function Header() {
           ) : (
             <GridViewIcon fontSize="medium" />
           )}
-        </IconButton>
+        </IconButton>}
         <Button>Logout</Button>
       </Box>
     </Box>
