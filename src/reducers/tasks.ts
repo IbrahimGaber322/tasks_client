@@ -27,6 +27,9 @@ type Data = {
   creator: string;
   content: Content[];
   comments: Comment[];
+  name:string;
+  dueDate:Date;
+  isCompleted:boolean;
 };
 const initialState = {
   tasks: [] as Data[],
@@ -46,19 +49,18 @@ const tasksReducer = (state = initialState, action: any) => {
     case FETCH_ALL:
       return {
         ...state,
-        task: null,
         tasks: pL.tasks,
-        currentPage: pL.currentPage,
+        currentPage: pL.currentPage? pL.currentPage: 1,
         numberOfPages: pL.numberOfPages,
         isLoading: false,
       };
     case FETCH_TASK:
-      return { ...state, task: pL, isLoading: false, currentPage: null };
+      return { ...state, task: pL, isLoading: false };
     case FETCH_BY_SEARCH:
       return {
         ...state,
         tasks: pL.tasks,
-        currentPage: pL.currentPage,
+        currentPage: pL.currentPage? pL.currentPage: 1,
         numberOfPages: pL.numberOfPages,
         isLoading: false,
       };

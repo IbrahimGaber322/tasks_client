@@ -42,8 +42,10 @@ function Header({list,setList,smallScreen}:{list:boolean, setList:Function, smal
               alt="icon"
               height={30}
               width={30}
+              sx={{cursor:"pointer"}}
+              onClick={()=>navigate('/')}
             />
-            <Typography margin={1} variant="h5">
+            <Typography onClick={()=>navigate('/')} sx={{mx:1, cursor:"pointer"}} variant="h5">
               Tasks
             </Typography>
           </>

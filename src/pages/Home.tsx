@@ -20,13 +20,18 @@ type Content = {
 }
 
 type Data = {
-    createdAt:Date;
-    _id:string;
-    title:string;
-    creator:string;
+    createdAt: Date;
+    _id: string;
+    title: string;
+    creator: string;
     content: Content[];
-    comments:Comment[];
-};
+    comments: Comment[];
+    name:string;
+    dueDate:Date;
+    isCompleted:boolean;
+  };
+
+  
 
 
 const Home = () => {
@@ -47,10 +52,10 @@ const Home = () => {
       }}
     >
       <Header smallScreen={smallScreen} list={list} setList={setList} />
-      <CreateTask smallScreen={smallScreen} />
+      <CreateTask setEdit={null} initialState={null} smallScreen={smallScreen} />
       <Box sx={{maxWidth:1200, mx:"auto", mb:3}}>
       <Box sx={{ width: (list ? (smallScreen?"100%":600) : "100%"), display: "flex", justifyContent:"center", mx:"auto", flexDirection:(list? "column":"row"),flexWrap:"wrap", gap:4, mt:3, }}>
-        {tasks?.map((task:Data,i:number)=>(<Task key={i} task={task} list={list} />))}
+        {tasks?.map((task:Data,i:number)=>(<Task key={i} commentButton={true} task={task} list={list} />))}
       </Box>
       </Box>
       <Pag />

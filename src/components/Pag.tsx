@@ -10,10 +10,10 @@ export default function Pag() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const paramsPage = searchParams.get("page");
-  console.log(`ParamsPage: ${paramsPage}`);
+
   const invalidPageValues = [null, undefined, "null", "undefined"];
   const page = invalidPageValues.includes(paramsPage) ? "1" : paramsPage;
-  console.log(`page: ${page}, currentPage: ${currentPage}`);
+
   const urlQuery = searchParams.get("searchQuery");
   const urlTags = searchParams.getAll("searchTags");
   const searchQuery = urlQuery || null;

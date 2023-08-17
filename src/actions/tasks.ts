@@ -17,9 +17,15 @@ type Content = {
 }
 
 type Data = {
-  title:string;
-  creator:string;
+  createdAt: Date;
+  _id: string;
+  title: string;
+  creator: string;
   content: Content[];
+  comments: Comment[];
+  name:string;
+  dueDate:Date;
+  isCompleted:boolean;
 };
 
 
@@ -28,7 +34,7 @@ export const fetchTasks:any = (page: string) => async (dispatch: Function) => {
   try {
     const { data } = await api.fetchTasks(page);
     dispatch({ type: FETCH_ALL, payload: data });
-    console.log(`fetchtasks action ${data.tasks[0].title}`)
+    console.log(`fetchtasks action ${data.tasks[0].dueDate}`)
   } catch (error) {
     console.log(error);
   }
@@ -74,23 +80,24 @@ export const updateTask:any =
   (id: any, task: any) => async (dispatch: Function) => {
     try {
       const { data } = await api.updateTask(id, task);
-      if (data === "Unauthinticated") {
-        dispatch({ type: SIGNOUT });
-      } else {
+      if (data) {
         dispatch({ type: UPDATE, payload: data });
+      } else {
+        dispatch({ type: SIGNOUT });
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-export const deleteTask = (id: any) => async (dispatch: Function) => {
+export const deleteTask:any = (id: any, navigate:Function) => async (dispatch: Function) => {
   try {
     const { data } = await api.deleteTask(id);
-    if (data === "Unauthinticated") {
-      dispatch({ type: SIGNOUT });
-    } else {
+    if (data) {
       dispatch({ type: DELETE, payload: id });
+      navigate('/');
+    } else {
+      dispatch({ type: SIGNOUT });
     }
   } catch (error) {
     console.log(error);
@@ -111,8 +118,8 @@ export const deleteComment =
     }
   };
 
-export const comment =
-  (comment: any, id: any) => async (dispatch: Function) => {
+export const comment:any =
+  (comment: string, id: string) => async (dispatch: Function) => {
     dispatch({ type: START_LOADING });
     try {
       const { data } = await api.comment(comment, id);
