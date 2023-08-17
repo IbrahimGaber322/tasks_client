@@ -1,19 +1,45 @@
+import * as React from "react";
 import { Box, Checkbox, Divider, FormControlLabel, FormGroup, IconButton, Typography } from "@mui/material";
 import CommentIcon from '@mui/icons-material/Comment';
+import { useDispatch } from "react-redux";
+import { updateTask } from "../actions/tasks";
 
-interface Props {
-  list: boolean;
-  task: 
-  {
-    title: string;
-    content: { text: string; done: boolean }[];
-    comments: { author: string; text: string }[];
-  }
-  ;
+type Comment = {
+    creator:string;
+    text:string;
+    createdAt:Date;
+    _id:string;
 }
 
-const Task = ({ list, task }: Props) => {
-    console.log(list);
+type Content = {
+    text:string;
+    done:boolean;
+}
+
+type Data = {
+    createdAt:Date;
+    _id:string;
+    title:string;
+    creator:string;
+    content: Content[];
+    comments:Comment[];
+};
+
+const Task = ({ list, task }: {list:boolean; task:Data;}) => {
+     const dispatch = useDispatch();
+    const handleClick = (done:boolean, text:string) =>{
+        const updatedContent = [...task.content].map((step)=>{
+            if(step.text === text){
+                return {...step, done:!done}
+            }else{
+                return step;
+            }
+        })
+
+        dispatch(updateTask(task._id, {...task, content:updatedContent }));
+
+    }
+    
   return (
     <Box
       sx={{
@@ -26,28 +52,28 @@ const Task = ({ list, task }: Props) => {
         flexDirection:"column"
       }}
     >
-        <Typography variant="h5" sx={{textAlign:"center", mt:1}}>{task.title}</Typography>
+        <Typography variant="h5" sx={{textAlign:"center", mt:1, overflowWrap:"anywhere"}}>{task.title}</Typography>
         <FormGroup sx={{ml:2}}>
-        {task.content.map((step)=>{
+        {task?.content?.map((step,i)=>{
             return(
-                <>
-                {!step.done&&<FormControlLabel sx={{cursor:"default"}} control={<Checkbox checked={step.done} />} label={step.text} />}
+                <React.Fragment key={i}>
+                {!step.done&&<FormControlLabel onClick={()=>handleClick(step.done,step.text)}  sx={{cursor:"default"}} control={<Checkbox checked={step.done} />} label={<Typography sx={{ overflowWrap:"anywhere"}}>{step.text}</Typography>} />}
                 
-                </>
+                </React.Fragment>
             )
         })}
        <Box component="hr" sx={{height:1, width:"80%"}} />
-        {task.content.map((step)=>{
+        {task?.content?.map((step,i)=>{
             return(
-                <>
-                {step.done&&<FormControlLabel sx={{cursor:"default"}} control={<Checkbox checked={step.done} />} label={step.text} />}
+                <React.Fragment key={i}>
+                {step.done&&<FormControlLabel onClick={()=>handleClick(step.done,step.text)} sx={{cursor:"default", wordWrap:"normal"}} control={<Checkbox checked={step.done} />} label={<Typography sx={{ overflowWrap:"anywhere"}}>{step.text}</Typography>} />}
                 
-                </>
+                </React.Fragment>
             )
         })}
         </FormGroup>
         <Box sx={{display:"flex", width:"100%", mt:1}}>
-            <IconButton>
+            <IconButton href={`/tasks/${task._id}`}>
                  <CommentIcon fontSize="small" />
             </IconButton>
         </Box>

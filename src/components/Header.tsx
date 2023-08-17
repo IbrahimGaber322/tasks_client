@@ -5,11 +5,17 @@ import Search from "./Search";
 import { useEffect, useState } from "react";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import GridViewIcon from "@mui/icons-material/GridView";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "../actions/users";
 function Header({list,setList,smallScreen}:{list:boolean, setList:Function, smallScreen:boolean}) {
- 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
  
-
+  const handleSignOut = () =>{
+    dispatch(signOut(navigate));
+  }
   useEffect(()=>{
     smallScreen&& setList(true);
   },[smallScreen,setList])
@@ -63,7 +69,7 @@ function Header({list,setList,smallScreen}:{list:boolean, setList:Function, smal
             <GridViewIcon fontSize="medium" />
           )}
         </IconButton>}
-        <Button>Logout</Button>
+        <Button onClick={handleSignOut}>Logout</Button>
       </Box>
     </Box>
   );

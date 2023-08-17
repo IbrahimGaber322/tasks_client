@@ -15,21 +15,21 @@ API.interceptors.request.use((req)=>{
     return req ;
 });
 
-export const fetchTasks = (page:any) => API.get(`/tasks/getTasks?page=${page}`); 
-export const fetchTask = (id:any) => API.get(`/tasks/task/${id}`); 
-export const getTasksBySearch = (search:any,page:any) => API.get(`/tasks/search?searchQuery=${search.searchQuery}&searchTags=${search.searchTags}&page=${page}`); 
+export const fetchTasks = (page:any) => API.get(`/tasks/?page=${page}`); 
+export const fetchTask = (id:any) => API.get(`/tasks/${id}`); 
+export const fetchTasksBySearch = (search:any,page:any) => API.get(`/tasks/search?searchQuery=${search.searchQuery}&searchTags=${search.searchTags}&page=${page}`); 
 export const createTask = (newTask:any) => API.post("/tasks", newTask);
 export const updateTask = (id:any, updatedTask:any) => API.patch(`/tasks/${id}`, updatedTask);
-export const deleteTask = (id:any) => API.delete(`/tasks/task/${id}`);
-export const deleteComment = (taskId:any,commentId:any) => API.delete(`/tasks/comment/${taskId}/${commentId}`);
-export const comment = (comment:any,id:any) => API.patch(`/tasks/${id}/comment`, comment);
+export const deleteTask = (id:any) => API.delete(`/tasks/${id}`);
+export const deleteComment = (taskId:any,commentId:any) => API.delete(`/tasks/${taskId}/comments/${commentId}`);
+export const comment = (comment:any,id:any) => API.patch(`/tasks/${id}/comments`, comment);
 
 
 
 //User api
-export const signUp = (newUser:any) => API.post(`/user/signUp`, newUser);
-export const signIn = (user:any) => API.post(`/user/signIn`, user);
-export const confirmEmail = (token:any) => API.get(`/user/confirmEmail/${token}`);
-export const forgotPassword = (userEmail:any) => API.post('user/forgotPassword', userEmail);
-export const resetPassword = (userData:any) => API.post('user/resetPassword', userData);
-
+export const signUp = (newUser:any) => API.post(`/users/sign-up`, newUser);
+export const signIn = (user:any) => API.post(`/users/sign-in`, user);
+export const confirm = (token:any) => API.get(`/users/confirm/${token}`);
+export const forget = (userEmail:any) => API.post('users/forget', userEmail);
+export const reset = (userData:any) => API.post('users/reset', userData);
+export const sendConfirm = (token:any) => API.post('users/send-confirm', token);

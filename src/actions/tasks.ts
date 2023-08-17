@@ -11,17 +11,30 @@ import {
 
 import * as api from "../api";
 
-export const getTasks = (page: any) => async (dispatch: Function) => {
+type Content = {
+  text:string;
+  done:boolean;
+}
+
+type Data = {
+  title:string;
+  creator:string;
+  content: Content[];
+};
+
+
+export const fetchTasks:any = (page: string) => async (dispatch: Function) => {
   dispatch({ type: START_LOADING });
   try {
     const { data } = await api.fetchTasks(page);
     dispatch({ type: FETCH_ALL, payload: data });
+    console.log(`fetchtasks action ${data.tasks[0].title}`)
   } catch (error) {
     console.log(error);
   }
 };
 
-export const getTask = (id:any) => async (dispatch: Function) => {
+export const fetchTask:any = (id:string) => async (dispatch: Function) => {
   dispatch({ type: START_LOADING });
   try {
     const { data } = await api.fetchTask(id);
@@ -31,35 +44,36 @@ export const getTask = (id:any) => async (dispatch: Function) => {
   }
 };
 
-export const getTasksBySearch =
+export const fetchTasksBySearch:any =
   (search: any, page: any) => async (dispatch: Function) => {
     dispatch({ type: START_LOADING });
     try {
-      const { data } = await api.getTasksBySearch(search, page);
+      const { data } = await api.fetchTasksBySearch(search, page);
       dispatch({ type: FETCH_BY_SEARCH, payload: data });
     } catch (error) {
       console.log(error);
     }
   };
 
-export const createTask = (task: any) => async (dispatch: Function) => {
+
+export const createTask:any = (task: Data) => async (dispatch: Function) => {
   try {
     const { data } = await api.createTask(task);
-
-    if (data === "Unauthinticated") {
-      dispatch({ type: SIGNOUT });
-    } else {
+    console.log(data);
+    if (data) {
       dispatch({ type: CREATE, payload: data });
+    } else {
+      dispatch({ type: SIGNOUT });
     }
   } catch (error) {
     console.log(error);
   }
 };
 
-export const updatePost =
-  (id: any, post: any) => async (dispatch: Function) => {
+export const updateTask:any =
+  (id: any, task: any) => async (dispatch: Function) => {
     try {
-      const { data } = await api.updateTask(id, post);
+      const { data } = await api.updateTask(id, task);
       if (data === "Unauthinticated") {
         dispatch({ type: SIGNOUT });
       } else {
