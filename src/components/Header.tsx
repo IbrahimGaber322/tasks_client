@@ -18,32 +18,36 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "../actions/users";
 import CancelIcon from "@mui/icons-material/Cancel";
+
 function Header({
   list,
   setList,
   smallScreen,
   sort,
-  setSort
+  setSort,
 }: {
   list: boolean;
   setList: Function;
   smallScreen: boolean;
-  sort:string;
-  setSort:Function
+  sort: string;
+  setSort: Function;
 }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showSearch, setShowSearch] = useState(false);
- 
   const [showSort, setShowSort] = useState<boolean>(false);
 
+  // Handle changing the sort option
   const handleChange = (event: SelectChangeEvent) => {
     setSort(event.target.value as string);
   };
 
+  // Handle signing out
   const handleSignOut = () => {
     dispatch(signOut(navigate));
   };
+
+  // If the screen is small, always show the list view
   useEffect(() => {
     smallScreen && setList(true);
   }, [smallScreen, setList]);
@@ -67,6 +71,7 @@ function Header({
         <Box
           sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}
         >
+          {/* App icon and title */}
           {(!smallScreen || !showSearch) && (
             <>
               <Box
@@ -88,18 +93,22 @@ function Header({
               </Typography>
             </>
           )}
+          {/* Search component */}
           <Search showSearch={showSearch} setShowSearch={setShowSearch} />
+          {/* Button to show sort options */}
           <Button onClick={() => setShowSort(true)}>Sort</Button>
         </Box>
+        {/* Logout and view options */}
         <Box
           sx={{
             display: "flex",
             flexDirection: "row",
             alignItems: "center",
             mr: 1,
-            ml:"auto"
+            ml: "auto",
           }}
         >
+          {/* Toggle between list and grid view */}
           {!smallScreen && (
             <IconButton
               onClick={() => {
@@ -113,13 +122,16 @@ function Header({
               )}
             </IconButton>
           )}
+          {/* Button to sign out */}
           <Button onClick={handleSignOut}>Logout</Button>
         </Box>
       </Box>
+      {/* Sort options */}
       {showSort && (
         <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
           <FormControl sx={{ width: "fit-content" }}>
             <InputLabel>Sort By</InputLabel>
+            {/* Dropdown menu for sort options */}
             <Select value={sort} label="Sort By" onChange={handleChange}>
               <MenuItem value={"createdAt"}>CreatedAt</MenuItem>
               <MenuItem value={"completed"}>Completed</MenuItem>
@@ -127,6 +139,7 @@ function Header({
               <MenuItem value={"dueDate"}>Due Date</MenuItem>
             </Select>
           </FormControl>
+          {/* Cancel button to hide sort options */}
           <IconButton
             onClick={() => {
               setShowSort(false);
@@ -139,4 +152,5 @@ function Header({
     </Box>
   );
 }
+
 export default Header;

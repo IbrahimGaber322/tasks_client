@@ -1,3 +1,4 @@
+// Import necessary modules and components from Material-UI
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -25,6 +26,7 @@ import {
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
+// Function component to display copyright information
 function Copyright(props: any) {
   return (
     <Typography
@@ -43,29 +45,47 @@ function Copyright(props: any) {
   );
 }
 
+// Initial state for the form fields
 const initialState = { email: "", password: "" };
+
+// Sign In component
 export default function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // State to manage form data
   const [formData, setFormData] = React.useState(initialState);
+
+  // State to manage password visibility
   const [showPassword, setShowPassword] = React.useState(false);
+
+  // State to manage error message display
   const [error, setError] = React.useState<boolean>(false);
+
+  // Function to toggle password visibility
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  // Function to prevent default behavior of mouse down event
   const handleMouseDownPassword = (event: any) => {
     event.preventDefault();
   };
 
+  // Function to handle changes in form fields
   const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError(false);
   };
+
+  // Function to handle form submission
   const handleSubmit = (event: any) => {
     if (formData.email.length > 0 && formData.password.length > 0) {
+      // Dispatch sign in action
+      dispatch(signIn(formData, navigate, setError));
     }
     event.preventDefault();
-    dispatch(signIn(formData, navigate,setError));
   };
 
+  // Render the sign-in form
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -84,6 +104,7 @@ export default function SignIn() {
           Sign in
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          {/* Email input field */}
           <TextField
             margin="normal"
             required
@@ -96,6 +117,7 @@ export default function SignIn() {
             onChange={handleChange}
             autoFocus
           />
+          {/* Password input field */}
           <FormControl fullWidth sx={{ mt: 1 }} variant="outlined">
             <InputLabel>Password</InputLabel>
             <OutlinedInput
@@ -117,14 +139,15 @@ export default function SignIn() {
               }
               label="Password"
             />
-              <FormHelperText>
-                {error&&"Incorrect Password."}
-              </FormHelperText>
+            {/* Display error message if error is true */}
+            <FormHelperText>{error && "Incorrect Password."}</FormHelperText>
           </FormControl>
+          {/* Remember me checkbox */}
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+          {/* Sign In button */}
           <Button
             type="submit"
             fullWidth
@@ -133,6 +156,7 @@ export default function SignIn() {
           >
             Sign In
           </Button>
+          {/* Links to other pages */}
           <Grid container>
             <Grid item xs>
               <Link href="/forget" variant="body2">
@@ -147,6 +171,7 @@ export default function SignIn() {
           </Grid>
         </Box>
       </Box>
+      {/* Display copyright information */}
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
   );

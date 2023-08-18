@@ -1,3 +1,4 @@
+// Importing necessary components and styles from MUI and React
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -14,10 +15,18 @@ import Container from "@mui/material/Container";
 import { useDispatch } from "react-redux";
 import { signUp } from "../actions/users";
 import { useNavigate } from "react-router-dom";
-import { FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput , FormHelperText } from "@mui/material";
+import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  FormHelperText,
+} from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
+// Function for displaying copyright information
 function Copyright(props: any) {
   return (
     <Typography
@@ -36,6 +45,7 @@ function Copyright(props: any) {
   );
 }
 
+// Initial state for the form
 const initialState = {
   firstName: "",
   lastName: "",
@@ -45,6 +55,7 @@ const initialState = {
   name: "",
 };
 
+// Initial state for error handling
 const initialErrorState = {
   firstName: false,
   lastName: false,
@@ -53,17 +64,24 @@ const initialErrorState = {
   confirmPassword: false,
 };
 
+// Component for user registration (sign up)
 export default function SignUp() {
+  // Redux dispatch and navigation hook
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // State management
   const [formData, setFormData] = React.useState(initialState);
   const [showPassword, setShowPassword] = React.useState(false);
   const [error, setError] = React.useState(initialErrorState);
+
+  // Toggles password visibility
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleMouseDownPassword = (event: any) => {
     event.preventDefault();
   };
 
+  // Handles input change in the form fields
   const handleChange = (e: any) => {
     setFormData({
       ...formData,
@@ -73,8 +91,10 @@ export default function SignUp() {
     setError({ ...error, [e.target.name]: false });
   };
 
+  // Handles form submission
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    // Validation checks for form fields
     if (
       formData.firstName.length === 0 ||
       formData.lastName.length === 0 ||
@@ -94,10 +114,12 @@ export default function SignUp() {
         confirmPassword: formData.confirmPassword !== formData.password,
       });
     } else {
+      // Dispatches sign-up action if form data is valid
       dispatch(signUp(formData, navigate));
     }
   };
 
+  // JSX code for rendering the sign-up form
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -117,6 +139,7 @@ export default function SignUp() {
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
+            {/* First Name */}
             <Grid item xs={12} sm={6}>
               <TextField
                 autoComplete="given-name"
@@ -135,6 +158,7 @@ export default function SignUp() {
                 onChange={handleChange}
               />
             </Grid>
+            {/* Last Name */}
             <Grid item xs={12} sm={6}>
               <TextField
                 required
@@ -152,11 +176,13 @@ export default function SignUp() {
                 onChange={handleChange}
               />
             </Grid>
+            {/* Hidden field for full name */}
             <TextField
               name="name"
               value={`${formData.firstName} ${formData.lastName}`}
               sx={{ display: "none" }}
             />
+            {/* Email */}
             <Grid item xs={12}>
               <TextField
                 required
@@ -174,60 +200,63 @@ export default function SignUp() {
                 onChange={handleChange}
               />
             </Grid>
+            {/* Password */}
             <Grid item xs={12}>
-            <FormControl
-              error={error.password}
-              required
-              fullWidth
-              variant="outlined"
-            >
-              <InputLabel>Password</InputLabel>
-              <OutlinedInput
-                type={showPassword ? "text" : "password"}
-                onChange={handleChange}
-                name="password"
-                value={formData.password}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-              />
-              <FormHelperText>
-                {error.password
-                  ? "Password must be at least 8 chars long and contain a number."
-                  : false}
-              </FormHelperText>
-            </FormControl>
+              <FormControl
+                error={error.password}
+                required
+                fullWidth
+                variant="outlined"
+              >
+                <InputLabel>Password</InputLabel>
+                <OutlinedInput
+                  type={showPassword ? "text" : "password"}
+                  onChange={handleChange}
+                  name="password"
+                  value={formData.password}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+                <FormHelperText>
+                  {error.password
+                    ? "Password must be at least 8 chars long and contain a number."
+                    : false}
+                </FormHelperText>
+              </FormControl>
             </Grid>
+            {/* Confirm Password */}
             <Grid pt={2} item xs={12}>
-            <FormControl
-              error={error.confirmPassword}
-              required
-              fullWidth
-              variant="outlined"
-            >
-              <InputLabel>Confirm Password</InputLabel>
-              <OutlinedInput
-                type="password"
-                onChange={handleChange}
-                value={formData.confirmPassword}
-                name="confirmPassword"
-                label="Confirm Password"
-              />
-              <FormHelperText>
-                {error.confirmPassword ? "Passwords don't match." : false}
-              </FormHelperText>
-            </FormControl>
-          </Grid>
+              <FormControl
+                error={error.confirmPassword}
+                required
+                fullWidth
+                variant="outlined"
+              >
+                <InputLabel>Confirm Password</InputLabel>
+                <OutlinedInput
+                  type="password"
+                  onChange={handleChange}
+                  value={formData.confirmPassword}
+                  name="confirmPassword"
+                  label="Confirm Password"
+                />
+                <FormHelperText>
+                  {error.confirmPassword ? "Passwords don't match." : false}
+                </FormHelperText>
+              </FormControl>
+            </Grid>
+            {/* Checkbox */}
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -235,6 +264,7 @@ export default function SignUp() {
               />
             </Grid>
           </Grid>
+          {/* Sign-up Button */}
           <Button
             type="submit"
             fullWidth
@@ -243,6 +273,7 @@ export default function SignUp() {
           >
             Sign Up
           </Button>
+          {/* Link to Sign In */}
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/sign-in" variant="body2">
@@ -252,6 +283,7 @@ export default function SignUp() {
           </Grid>
         </Box>
       </Box>
+      {/* Copyright Information */}
       <Copyright sx={{ mt: 5 }} />
     </Container>
   );

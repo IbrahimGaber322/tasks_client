@@ -1,6 +1,9 @@
-import {combineReducers} from "redux";
+import { combineReducers } from "redux";
 import tasksReducer from "./tasks";
 import userReducer from "./users";
 
-
-export default combineReducers( {tasks:tasksReducer, user:userReducer});
+// Combine multiple reducers using combineReducers
+export default combineReducers({
+  tasks: tasksReducer, // tasksReducer handles tasks related state
+  user: userReducer, // userReducer handles user related state
+});
