@@ -61,6 +61,10 @@ const TaskDetails = ({
       setCommentText("");
     }
   };
+  // Copy current URL to clip for sharing
+  async function copyToClip() {
+    await navigator.clipboard.writeText(window.location.href);
+  }
 
   // Fetches task details when the "id" parameter changes
   useEffect(() => {
@@ -100,6 +104,7 @@ const TaskDetails = ({
           <Box sx={{ display: "flex", mx: "auto", gap: 2 }}>
             <Button onClick={handleOpen}>Delete Task</Button>
             <Button onClick={() => setEdit(true)}>Edit Task</Button>
+            <Button onClick={copyToClip}>Share Task</Button>
             <Backdrop
               open={open}
               sx={{
