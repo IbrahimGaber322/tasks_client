@@ -1,4 +1,4 @@
-# Task Client Readme
+# Tasks Client Readme
 
 This repository contains the frontend code for the Task Manager Application. It is built using React.js and TypeScript, with Material-UI for styling.
 
