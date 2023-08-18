@@ -30,10 +30,10 @@ type Data = {
 };
 
 
-export const fetchTasks:any = (page: string) => async (dispatch: Function) => {
+export const fetchTasks:any = (page: string, sort:string) => async (dispatch: Function) => {
   dispatch({ type: START_LOADING });
   try {
-    const { data } = await api.fetchTasks(page);
+    const { data } = await api.fetchTasks(page,sort);
     dispatch({ type: FETCH_ALL, payload: data });
     console.log(`fetchtasks action ${data.tasks[0].dueDate}`)
   } catch (error) {
@@ -52,10 +52,10 @@ export const fetchTask:any = (id:string) => async (dispatch: Function) => {
 };
 
 export const fetchTasksBySearch:any =
-  (search: any, page: any) => async (dispatch: Function) => {
+  (search: any, page: any, sort:string) => async (dispatch: Function) => {
     dispatch({ type: START_LOADING });
     try {
-      const { data } = await api.fetchTasksBySearch(search, page);
+      const { data } = await api.fetchTasksBySearch(search, page, sort);
       dispatch({ type: FETCH_BY_SEARCH, payload: data });
     } catch (error) {
       console.log(error);

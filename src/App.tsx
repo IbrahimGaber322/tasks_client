@@ -21,6 +21,8 @@ function App() {
       ? JSON.parse(localStorage.getItem("dark") as string)
       : false;
 
+  const [sort, setSort] = useState("createdAt");
+
   const user = useSelector((state: any) => state.user);
   console.log(user);
   const [dark, setDark] = useState(darkState);
@@ -48,17 +50,17 @@ function App() {
             />
             <Route path="/confirm/:token" element={<Confirm />} />
             <Route path="/confirm" element={<Confirm />} />
-            <Route path="/tasks/:id" element={<TaskDetails />} />
+            <Route path="/tasks/:id" element={<TaskDetails sort={sort} setSort={setSort} />} />
             <Route path="/forget" element={!user.token && <Forget />} />
             <Route path="/reset/:token" element={!user && <Reset />} />
             <Route path="/reset" element={!user.token && <Reset />} />
             <Route
               path="/search"
-              element={user.token ? <Home /> : <Navigate to="/sign-in" />}
+              element={user.token ? <Home setSort={setSort} sort={sort} /> : <Navigate to="/sign-in" />}
             />
             <Route
               path="/"
-              element={user.token ? <Home /> : <Navigate to="/sign-in" />}
+              element={user.token ? <Home setSort={setSort} sort={sort} /> : <Navigate to="/sign-in" />}
             />
           </Routes>
 

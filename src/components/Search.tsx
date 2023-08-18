@@ -14,7 +14,7 @@ import { MuiChipsInput } from "mui-chips-input";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useNavigate } from "react-router-dom";
 function Search({showSearch, setShowSearch}:{showSearch:boolean; setShowSearch:Function}) {
-  const [expand, setExpand] = useState(false);
+
  
   const navigate = useNavigate();
   const [search, setSearch] = useState("");

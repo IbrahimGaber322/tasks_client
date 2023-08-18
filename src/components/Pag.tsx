@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTasks, fetchTasksBySearch } from "../actions/tasks";
 
-export default function Pag() {
+export default function Pag({sort}:{sort:string;}) {
   const dispatch = useDispatch();
   const { numberOfPages, currentPage } = useSelector(
     (state: any) => state?.tasks
@@ -19,17 +19,17 @@ export default function Pag() {
   const urlTags = searchParams.getAll("searchTags");
   const searchQuery = urlQuery || null;
   const searchTags = urlTags?.join(",") || null;
-
+  console.log(sort);
   useEffect(() => {
     if (page) {
       if (searchQuery || searchTags) {
-        dispatch(fetchTasksBySearch({ searchQuery, searchTags }, page));
+        dispatch(fetchTasksBySearch({ searchQuery, searchTags }, page, sort));
         console.log("search dispatched")
       } else {
-        dispatch(fetchTasks(page));
+        dispatch(fetchTasks(page, sort));
       }
     }
-  }, [searchQuery, searchTags, dispatch, page]);
+  }, [searchQuery, searchTags, dispatch, page, sort]);
 
   return (
     currentPage && (

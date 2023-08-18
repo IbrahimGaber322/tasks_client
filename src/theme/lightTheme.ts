@@ -8,8 +8,8 @@ import { createTheme } from "@mui/material/styles";
         contrastText: "#FFFFFF",
     },
     secondary: {
-        main: "#e91e63",
-        contrastText: "#fff",
+        main: "#000000",
+        contrastText: "#FFFFFF",
     },
     background: {
         default: "#f0f0f0",

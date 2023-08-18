@@ -49,7 +49,7 @@ const Task = ({ list, task , options }: {list:boolean; task:Data; options:boolea
     }
  
   return (
-    <Tooltip title={task?.tags.map((tag) => ` #${tag}`)}>
+    <Tooltip title={task?.tags?.map((tag) => ` #${tag}`)}>
     <Box
       sx={{
         width: (list ? "90%" : 300),

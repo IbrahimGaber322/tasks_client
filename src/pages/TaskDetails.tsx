@@ -7,7 +7,7 @@ import Header from "../components/Header";
 import { Box, Button, TextField, Typography, Backdrop, IconButton } from "@mui/material";
 import CreateTask from "../components/CreateTask";
 import DeleteIcon from '@mui/icons-material/Delete';
-const TaskDetails = () => {
+const TaskDetails = ({sort, setSort}:{sort:string; setSort:Function}) => {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
     setOpen(false);
@@ -48,7 +48,7 @@ const TaskDetails = () => {
 
   return (
     <>
-      <Header list={list} setList={setList} smallScreen={true} />
+      <Header sort={sort} setSort={setSort} list={list} setList={setList} smallScreen={true} />
       <Box
         sx={{
           mt: 4,

@@ -35,10 +35,11 @@ type Data = {
   
 
 
-const Home = () => {
+const Home = ({sort, setSort}:{sort:string; setSort:Function}) => {
   const tasks = useSelector((state:any)=>state.tasks?.tasks);
   console.log(`all tasks ${tasks.length}`)
   const [list, setList] = useState(true);
+ 
   const smallScreen = useMediaQuery("(max-width:600px)");
 
   
@@ -52,14 +53,14 @@ const Home = () => {
         flexDirection: "column",
       }}
     >
-      <Header smallScreen={smallScreen} list={list} setList={setList} />
+      <Header sort={sort} setSort={setSort} smallScreen={smallScreen} list={list} setList={setList} />
       <CreateTask setEdit={null} initialState={null} smallScreen={smallScreen} />
       <Box sx={{maxWidth:1200, mx:"auto", mb:3}}>
       <Box sx={{ width: (list ? (smallScreen?"100%":600) : "100%"), display: "flex", justifyContent:"center", mx:"auto", flexDirection:(list? "column":"row"),flexWrap:"wrap", gap:4, mt:3, }}>
         {tasks?.map((task:Data,i:number)=>(<Task key={i} options={true} task={task} list={list} />))}
       </Box>
       </Box>
-      <Pag />
+      <Pag sort={sort} />
     </Box>
   );
 };
