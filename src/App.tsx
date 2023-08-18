@@ -104,7 +104,7 @@ function App() {
 
           {/* Dark mode switch */}
           <MaterialUISwitch
-            sx={{ position: "absolute", bottom: 0, right: 0, p: 1 }}
+            sx={{ position: "absolute", bottom: 0, right: 0, m:1 }}
             checked={dark}
             onChange={(e: any) => {
               setDark(e.target.checked);
