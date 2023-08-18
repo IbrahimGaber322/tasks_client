@@ -2,7 +2,6 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -121,11 +120,9 @@ export default function SignUp() {
 
   // JSX code for rendering the sign-up form
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
+    <Container sx={{ pt: 8 }} maxWidth="xs">
       <Box
         sx={{
-          marginTop: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",

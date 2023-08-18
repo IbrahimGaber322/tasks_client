@@ -62,6 +62,7 @@ export default function Pag({ sort }: { sort: string }) {
           renderItem={(item) => (
             // Customize the PaginationItem to include appropriate links
             <PaginationItem
+              sx={{ color: "white" }}
               to={
                 !(searchQuery || searchTags)
                   ? `/?page=${item.page}`

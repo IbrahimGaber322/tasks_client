@@ -46,6 +46,7 @@ function App() {
 
         {/* Main container */}
         <Container
+          component="main"
           sx={{ minHeight: "100vh", position: "relative" }}
           maxWidth={false}
           disableGutters
@@ -103,7 +104,7 @@ function App() {
 
           {/* Dark mode switch */}
           <MaterialUISwitch
-            sx={{ position: "absolute", bottom: 0, right: 0, m: 1 }}
+            sx={{ position: "absolute", bottom: 0, right: 0, p: 1 }}
             checked={dark}
             onChange={(e: any) => {
               setDark(e.target.checked);

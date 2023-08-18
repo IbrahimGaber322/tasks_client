@@ -6,38 +6,38 @@ const theme = createTheme({
   palette: {
     mode: "dark", // Set the theme mode to dark
     primary: {
-      main: "#FFFFFF", // Main primary color
-      contrastText: "#000000", // Contrast text color for primary elements
+      main: "#1976D2", // Main primary color
+      contrastText: "#FFFFFF", // Contrast text color for primary elements
     },
     secondary: {
-      main: "#000000", // Main secondary color
+      main: "#F50057", // Main secondary color
       contrastText: "#FFFFFF", // Contrast text color for secondary elements
     },
     background: {
-      default: "#212121", // Default background color
-      paper: "#242424", // Background color for paper elements
+      default: "#121212", // Default background color
+      paper: "#1E1E1E", // Background color for paper elements
     },
     success: {
-      main: "#67be23", // Success color
+      main: "#4CAF50", // Success color
       contrastText: "#fff", // Contrast text color for success elements
     },
     error: {
-      main: "#ee2a1e", // Error color
+      main: "#FF5722", // Error color
       contrastText: "#fff", // Contrast text color for error elements
     },
     warning: {
-      main: "#fa8c16", // Warning color
+      main: "#FFC107", // Warning color
       contrastText: "#fff", // Contrast text color for warning elements
     },
     info: {
-      main: "#1890ff", // Info color
+      main: "#2196F3", // Info color
       contrastText: "#fff", // Contrast text color for info elements
     },
-    divider: "rgba(0,0,0,0)", // Divider color
+    divider: "rgba(255, 255, 255, 0.12)", // Divider color
     text: {
-      primary: "#fff", // Primary text color
-      secondary: "rgba(255,255,255,0.7)", // Secondary text color
-      disabled: "#d1d1d1", // Disabled text color
+      primary: "#FFFFFF", // Primary text color
+      secondary: "rgba(255, 255, 255, 0.7)", // Secondary text color
+      disabled: "#BDBDBD", // Disabled text color
     },
   },
   typography: {

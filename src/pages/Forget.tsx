@@ -105,7 +105,7 @@ export default function Forget() {
           </Grid>
           <Grid pt={2} item xs={12} display={"flex"} justifyContent={"end"}>
             {/* Link to go back to sign in */}
-            <LinkM component={Link} to={"/signin"}>
+            <LinkM component={Link} to={"/sign-in"}>
               Go back to sign in
             </LinkM>
           </Grid>
