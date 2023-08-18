@@ -1,9 +1,10 @@
 import * as React from "react";
 import { Box, Checkbox, FormControlLabel, FormGroup, IconButton, Typography } from "@mui/material";
-import CommentIcon from '@mui/icons-material/Comment';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useDispatch } from "react-redux";
 import { updateTask } from "../actions/tasks";
 import dayjs from "dayjs";
+import Tooltip from '@mui/material/Tooltip';
 type Comment = {
     creator:string;
     text:string;
@@ -26,9 +27,10 @@ type Data = {
     name:string;
     dueDate:Date;
     isCompleted:boolean;
+    tags:string[];
   };
 
-const Task = ({ list, task , commentButton }: {list:boolean; task:Data; commentButton:boolean;}) => {
+const Task = ({ list, task , options }: {list:boolean; task:Data; options:boolean;}) => {
     const date = dayjs(task?.dueDate).format('DD/MM/YYYY HH:mm:A');
      const dispatch = useDispatch();
     const handleClick = (done:boolean, text:string) =>{
@@ -39,12 +41,15 @@ const Task = ({ list, task , commentButton }: {list:boolean; task:Data; commentB
                 return step;
             }
         })
+        const check = updatedContent.filter((step)=>(step.done === false));
+        console.log(check.length === 0);
 
-        dispatch(updateTask(task?._id, {...task, content:updatedContent }));
+        dispatch(updateTask(task?._id, {...task, content:updatedContent, isCompleted:(check.length===0) }));
 
     }
  
   return (
+    <Tooltip title={task?.tags.map((tag) => ` #${tag}`)}>
     <Box
       sx={{
         width: (list ? "90%" : 300),
@@ -54,7 +59,8 @@ const Task = ({ list, task , commentButton }: {list:boolean; task:Data; commentB
         mx:(list?"auto":0),
         display:"flex",
         flexDirection:"column",
-        p:2
+        p:2,
+        position:"relative"
       }}
     >
         <Box sx={{display:"flex", justifyContent:"space-between"}}>
@@ -83,12 +89,13 @@ const Task = ({ list, task , commentButton }: {list:boolean; task:Data; commentB
             )
         })}
         </FormGroup>
-        <Box sx={{display:"flex", width:"100%", mt:1}}>
-            {commentButton&&<IconButton href={`/tasks/${task?._id}`}>
-                 <CommentIcon fontSize="small" />
+       
+            {options&&<IconButton sx={{position:"absolute", bottom:0, right:0}} href={`/tasks/${task?._id}`}>
+                 <ArrowForwardIcon fontSize="small" />
             </IconButton>}
-        </Box>
+      
     </Box>
+    </Tooltip>
   );
 };
 

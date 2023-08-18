@@ -28,6 +28,7 @@ type Data = {
   isCompleted: boolean;
   dueDate: Date;
   name:string;
+  tags:string[];
 };
 
 const CreateTask = ({ smallScreen, initialState, setEdit }: { smallScreen: boolean; initialState:any; setEdit:any; }) => {
@@ -44,6 +45,7 @@ const CreateTask = ({ smallScreen, initialState, setEdit }: { smallScreen: boole
     isCompleted: false,
     dueDate: today,
     name:user?.name||"",
+    tags:[]
   };
   const [expand, setExpand] = useState(false);
   const [data, setData] = useState<Data>(initialState||emptyInitialState);
@@ -168,6 +170,16 @@ const CreateTask = ({ smallScreen, initialState, setEdit }: { smallScreen: boole
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateTimePicker onChange={(newValue) => setTime(newValue)} value={time} label="Set due date" />
             </LocalizationProvider>
+            <TextField
+            name="tags"
+            variant="outlined"
+            label='Tags : "tag1,tag2,tag3..."'
+            fullWidth
+            value={data.tags}
+            onChange={(e) =>{
+              setData({ ...data, tags: e?.target?.value?.split(',')?.map((tag)=>tag.trim())});} 
+            }
+          />
             <Button onClick={handleSubmit} fullWidth>
               Add
             </Button>

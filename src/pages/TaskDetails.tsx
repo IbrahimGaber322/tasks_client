@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { comment, deleteTask, fetchTask } from "../actions/tasks";
+import { comment, deleteComment, deleteTask, fetchTask } from "../actions/tasks";
 import Task from "../components/Task";
 import Header from "../components/Header";
-import { Box, Button, TextField, Typography, Backdrop } from "@mui/material";
+import { Box, Button, TextField, Typography, Backdrop, IconButton } from "@mui/material";
 import CreateTask from "../components/CreateTask";
-
+import DeleteIcon from '@mui/icons-material/Delete';
 const TaskDetails = () => {
   const [open, setOpen] = useState(false);
   const handleClose = () => {
@@ -83,7 +83,7 @@ const TaskDetails = () => {
             No
           </Button>
         </Backdrop></Box>}
-        {edit?<CreateTask setEdit={setEdit} initialState={task} smallScreen={true} /> : <Task task={task} list={true} commentButton={false} />}
+        {edit?<CreateTask setEdit={setEdit} initialState={task} smallScreen={true} /> : <Task task={task} list={true} options={false} />}
 
         <Box
           sx={{
@@ -127,6 +127,7 @@ const TaskDetails = () => {
                     ml: 2,
                     display: "flex",
                     height: "fit-content",
+                    position:"relative"
                   }}
                 >
                   <Typography
@@ -139,9 +140,12 @@ const TaskDetails = () => {
                   >
                     {c.name}:
                   </Typography>
-                  <Typography sx={{ overflowWrap: "anywhere" }}>
+                  <Typography sx={{ overflowWrap: "anywhere", pr:3 }}>
                     {c.text}
                   </Typography>
+                  <IconButton onClick={()=>{dispatch(deleteComment(task._id, c._id))}} sx={{position:"absolute", bottom:0, right:0, p:0}}>
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
                 </Box>
               );
             })}

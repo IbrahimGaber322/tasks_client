@@ -17,7 +17,7 @@ API.interceptors.request.use((req)=>{
 
 export const fetchTasks = (page:any) => API.get(`/tasks/?page=${page}`); 
 export const fetchTask = (id:any) => API.get(`/tasks/${id}`); 
-export const fetchTasksBySearch = (search:any,page:any) => API.get(`/tasks/search?searchQuery=${search.searchQuery}&searchTags=${search.searchTags}&page=${page}`); 
+export const fetchTasksBySearch = (search:any,page:any) => API.get(`/tasks/search/search?searchQuery=${search.searchQuery}&searchTags=${search.searchTags}&page=${page}`); 
 export const createTask = (newTask:any) => API.post("/tasks", newTask);
 export const updateTask = (id:any, updatedTask:any) => API.patch(`/tasks/${id}`, updatedTask);
 export const deleteTask = (id:any) => API.delete(`/tasks/${id}`);

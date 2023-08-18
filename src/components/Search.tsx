@@ -12,17 +12,24 @@ import SearchIcon from "@mui/icons-material/Search";
 
 import { MuiChipsInput } from "mui-chips-input";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { useNavigate } from "react-router-dom";
 function Search({showSearch, setShowSearch}:{showSearch:boolean; setShowSearch:Function}) {
   const [expand, setExpand] = useState(false);
  
-
+  const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [chips, setChips] = useState([]);
   const [chipInput, setChipInput] = useState("");
-
+  const page = 1;
   const searchTasks = () => {
     const searchQuery = search?.trim() || null;
     const searchTags = chips?.join(",") || null;
+    if (searchQuery || searchTags) {
+      navigate(`/search?searchQuery=${searchQuery}&searchTags=${searchTags}&page=${page}`);
+    } else {
+      navigate("/?page=1");
+    }
+    
   };
 
   const handleChange = (newChips: any) => {
@@ -38,13 +45,13 @@ function Search({showSearch, setShowSearch}:{showSearch:boolean; setShowSearch:F
       searchTasks();
     }
   };
-  const handleExpand = () => {
-    if (!expand) {
-      setExpand(true);
-    } else {
-      searchTasks();
-    }
-  };
+
+  const handleCancel = () =>{
+    setShowSearch(false);
+    setSearch("");
+    setChipInput("");
+    navigate("/?page=1");
+  }
 
   return (
     <Box display="flex" flexDirection="column" justifyContent="center" ml={4}>
@@ -60,7 +67,7 @@ function Search({showSearch, setShowSearch}:{showSearch:boolean; setShowSearch:F
               justifyContent="center"
               m="auto"
             >
-              <Grow in>
+              
                 <TextField
                   onKeyDown={handleKeyDown}
                   onChange={(e) => setSearch(e.target.value)}
@@ -68,8 +75,7 @@ function Search({showSearch, setShowSearch}:{showSearch:boolean; setShowSearch:F
                     startAdornment: (
                       <InputAdornment position="start">
                         <IconButton
-                          onClick={handleExpand}
-                          sx={{ p: 0, borderRadius: 5 }}
+                          sx={{ p: 0, borderRadius: 5, cursor:"default" }}
                         >
                           <SearchIcon fontSize="medium" />
                         </IconButton>
@@ -78,9 +84,7 @@ function Search({showSearch, setShowSearch}:{showSearch:boolean; setShowSearch:F
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton
-                          onClick={() => {
-                            setShowSearch(false);
-                          }}
+                          onClick={handleCancel}
                           sx={{ p: 0, borderRadius: 5 }}
                         >
                           <CancelIcon fontSize="medium" />
@@ -94,7 +98,7 @@ function Search({showSearch, setShowSearch}:{showSearch:boolean; setShowSearch:F
                   fullWidth
                   variant="outlined"
                 ></TextField>
-              </Grow>
+            
             </Box>
 
             <Box
@@ -105,7 +109,7 @@ function Search({showSearch, setShowSearch}:{showSearch:boolean; setShowSearch:F
             >
               <Box display="flex">
                 <MuiChipsInput
-                  color="primary"
+                  color="secondary"
                   autoFocus
                   onInput={(e) => handleChipInput(e)}
                   inputValue={chipInput}

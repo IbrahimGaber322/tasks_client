@@ -26,6 +26,7 @@ type Data = {
   name:string;
   dueDate:Date;
   isCompleted:boolean;
+  tags:string[];
 };
 
 
@@ -104,14 +105,15 @@ export const deleteTask:any = (id: any, navigate:Function) => async (dispatch: F
   }
 };
 
-export const deleteComment =
-  (postId: any, commentId: any) => async (dispatch:Function) => {
+export const deleteComment:any =
+  (taskId: any, commentId: any) => async (dispatch:Function) => {
     try {
-      const { data } = await api.deleteComment(postId, commentId);
-      if (data === "Unauthinticated") {
-        dispatch({ type: SIGNOUT });
-      } else {
+      const { data } = await api.deleteComment(taskId, commentId);
+      if (data) {
+        
         dispatch({ type: UPDATE, payload: data });
+      } else {
+        dispatch({ type: SIGNOUT });
       }
     } catch (error) {
       console.log(error);

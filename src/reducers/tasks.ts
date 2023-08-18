@@ -27,9 +27,9 @@ type Data = {
   creator: string;
   content: Content[];
   comments: Comment[];
-  name:string;
-  dueDate:Date;
-  isCompleted:boolean;
+  name: string;
+  dueDate: Date;
+  isCompleted: boolean;
 };
 const initialState = {
   tasks: [] as Data[],
@@ -50,7 +50,7 @@ const tasksReducer = (state = initialState, action: any) => {
       return {
         ...state,
         tasks: pL.tasks,
-        currentPage: pL.currentPage? pL.currentPage: 1,
+        currentPage: pL.currentPage ? pL.currentPage : 1,
         numberOfPages: pL.numberOfPages,
         isLoading: false,
       };
@@ -60,20 +60,22 @@ const tasksReducer = (state = initialState, action: any) => {
       return {
         ...state,
         tasks: pL.tasks,
-        currentPage: pL.currentPage? pL.currentPage: 1,
+        currentPage: pL.currentPage ? pL.currentPage : 1,
         numberOfPages: pL.numberOfPages,
         isLoading: false,
       };
     case CREATE:
       let updatedTasks;
+
       if (state.tasks.length >= 10) {
-        // Remove the last task and add the new task at the beginning
         updatedTasks = [pL, ...state.tasks.slice(0, 9)];
+        return { ...state, tasks: updatedTasks, numberOfPages: 2 };
       } else {
         // Simply add the new task at the beginning
         updatedTasks = [pL, ...state.tasks];
+        return { ...state, tasks: updatedTasks };
       }
-      return { ...state, tasks: updatedTasks };
+
     case UPDATE:
       return {
         ...state,
