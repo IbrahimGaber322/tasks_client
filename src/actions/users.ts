@@ -2,8 +2,7 @@ import { SIGNUP, SIGNIN, SIGNOUT } from "../constants/actionTypes";
 
 import * as api from "../api";
 
-
-export const signOut:any = (navigate: Function) => async (dispatch: any) => {
+export const signOut: any = (navigate: Function) => async (dispatch: any) => {
   try {
     dispatch({ type: SIGNOUT });
     navigate("/?page=1");
@@ -12,9 +11,8 @@ export const signOut:any = (navigate: Function) => async (dispatch: any) => {
   }
 };
 
-export const signUp:any =
-  (user: any, navigate: Function)  => async (dispatch: Function) =>  {
-  
+export const signUp: any =
+  (user: any, navigate: Function) => async (dispatch: Function) => {
     try {
       const { data } = await api.signUp(user);
       if (data.token) {
@@ -29,7 +27,7 @@ export const signUp:any =
     }
   };
 
-export const confirm:any =
+export const confirm: any =
   (token: string, navigate: Function) => async (dispatch: Function) => {
     try {
       const { data } = await api.confirm(token);
@@ -41,11 +39,13 @@ export const confirm:any =
     }
   };
 
-export const signIn:any =
-  (user: any, navigate: Function) => async (dispatch: Function) => {
+export const signIn: any =
+  (user: any, navigate: Function, setError: Function) =>
+  async (dispatch: Function) => {
     try {
       const { data } = await api.signIn(user);
-      console.log(data);
+      console.log(`data.token:${data.token}`);
+
       if (data?.confirmed) {
         dispatch({ type: SIGNIN, payload: data });
 
@@ -55,12 +55,13 @@ export const signIn:any =
         navigate("/confirm");
       }
     } catch (error) {
+      setError(true);
       console.log(error);
     }
   };
 
-export const forget:any =
-  (userEmail: any,setSent:Function) => async (dispatch: Function) => {
+export const forget: any =
+  (userEmail: any, setSent: Function) => async (dispatch: Function) => {
     try {
       const { data } = await api.forget(userEmail);
       if (data.message === "success") {
@@ -71,7 +72,7 @@ export const forget:any =
     }
   };
 
-export const reset:any =
+export const reset: any =
   (userData: any, navigate: Function) => async (dispatch: Function) => {
     try {
       const { data } = await api.reset(userData);
@@ -84,13 +85,12 @@ export const reset:any =
     }
   };
 
-  export const sendConfirm:any = (token:any, setSent:Function) => async () => {
-    console.log(token);
-    try {
-      await api.sendConfirm(token);
-      setSent(true);
-      
-    } catch (error) {
-      console.log(error);
-    }
-  } 
+export const sendConfirm: any = (token: any, setSent: Function) => async () => {
+  console.log(token);
+  try {
+    await api.sendConfirm(token);
+    setSent(true);
+  } catch (error) {
+    console.log(error);
+  }
+};
