@@ -57,7 +57,7 @@ const Reset = () => {
 
   return (token?
     <Box
-      sx={{ width: "100%", display: "flex", justifyContent: "center" }}
+      sx={{ width: "100%", display: "flex", justifyContent: "center", height:"100vh", alignItems:"center" }}
       component="form"
       noValidate
       onSubmit={handleSubmit}

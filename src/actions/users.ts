@@ -77,7 +77,7 @@ export const reset:any =
       const { data } = await api.reset(userData);
 
       if (data) {
-        navigate("/signin");
+        navigate("/sign-in");
       }
     } catch (error) {
       console.log(error);

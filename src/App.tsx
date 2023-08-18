@@ -29,6 +29,8 @@ function App() {
   useEffect(() => {
     localStorage.setItem("dark", JSON.stringify(dark));
   }, [dark]);
+
+  console.log(user);
   return (
     <BrowserRouter>
       <ThemeProvider theme={dark ? darkTheme : lightTheme}>
@@ -48,11 +50,11 @@ function App() {
               path="/sign-up"
               element={user.token ? <Navigate to="/?page=1" /> : <SignUp />}
             />
-            <Route path="/confirm/:token" element={<Confirm />} />
-            <Route path="/confirm" element={<Confirm />} />
+            <Route path="/confirm/:token" element={user.confirmed?<Navigate to="/?page=1" /> :<Confirm />} />
+            <Route path="/confirm" element={user.confirmed?<Navigate to="/?page=1" /> :<Confirm />} />
             <Route path="/tasks/:id" element={<TaskDetails sort={sort} setSort={setSort} />} />
             <Route path="/forget" element={!user.token && <Forget />} />
-            <Route path="/reset/:token" element={!user && <Reset />} />
+            <Route path="/reset/:token" element={!user.token && <Reset />} />
             <Route path="/reset" element={!user.token && <Reset />} />
             <Route
               path="/search"
