@@ -24,11 +24,12 @@ const initialErrorState = {password:false,confirmPassword:false};
 const Reset = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
   const [formData, setFormData] = useState(initialState);
   const [error, setError] = useState(initialErrorState);
   const [showPassword, setShowPassword] = React.useState(false);
   const {token} = useParams();
-
+ 
   
   const handleSubmit = (e:any) => {
     e.preventDefault();

@@ -60,11 +60,11 @@ export const signIn:any =
   };
 
 export const forget:any =
-  (userEmail: any, navigate: Function) => async (dispatch: Function) => {
+  (userEmail: any,setSent:Function) => async (dispatch: Function) => {
     try {
       const { data } = await api.forget(userEmail);
       if (data.message === "success") {
-        navigate("/resetpassword");
+        setSent(true);
       }
     } catch (error) {
       console.log(error);
