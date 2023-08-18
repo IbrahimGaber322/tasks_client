@@ -1,46 +1,86 @@
-# Getting Started with Create React App
+# Tasks Client Readme
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository contains the frontend code for the Task Manager Application. It is built using React.js and TypeScript, with Material-UI for styling.
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+To run the Task Client, follow these steps:
 
-### `npm start`
+1. Ensure that you have Node.js installed on your machine.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Clone this repository to your local machine.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Navigate to the repository directory using the command line.
 
-### `npm test`
+1. Run the following command to install the required dependencies:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```
+   npm install
+   ```
 
-### `npm run build`
+## Configuration
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Before running the Task Client, make sure to configure the backend server URL. Open the `.env` file and set the `REACT_APP_SERVER_URL` variable to the URL where the Task Server is running.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```dotenv
+REACT_APP_SERVER_URL=http://localhost:8000  # Replace with your backend server URL
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
 
-### `npm run eject`
+To start the Task Client, use the following command:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+npm start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+This will start the development server and open the application in your default web browser. The application will automatically reload if you make any changes to the source code.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Features
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+The Task Client includes the following features:
 
-## Learn More
+1. **Get all tasks**: Fetch tasks from the backend API and display them in a list.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. **Add a new task**: Use the form to add new tasks with fields for taskName, description, and dueDate.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. **Mark a task as completed**: Click on the button to mark a task as completed.
+
+4. **Delete a task**: Click on the button to delete a task.
+
+5. **Update Task**: Allow users to edit and update existing tasks.
+
+6. **Filter and Sorting**: Implement the ability to filter tasks based on completion status or due date. Allow users to sort tasks by due date or completion status.
+
+7. **Task Categories/Tags**: Allow users to categorize tasks by adding tags or categories. Implement a feature to filter tasks by tags.
+
+8. **Pagination**: If the number of tasks is large, implement pagination on the backend and frontend to display tasks in smaller, manageable chunks.
+
+9. **User Authentication**: Add user authentication and allow users to have their task lists. Each user should only see and manage their tasks.
+
+10. **Task Sharing**: Implement the ability for users to share individual tasks with others via a unique link.
+
+11. **Task Comments**: Allow users to add comments to tasks and view a list of comments on each task.
+
+12. **Data Validation**: Ensure that all input data is properly validated on both the frontend and backend to prevent any potential security vulnerabilities.
+
+##Live Version
+
+You can check out the live version on this link: [live](https://tasks-kabg.onrender.com)
+
+## Contributing
+
+If you would like to contribute to this project, feel free to submit a pull request. Please make sure to follow the established coding style and guidelines.
+
+## License
+
+This project is licensed under the ISC License. See the [LICENSE](LICENSE) file for more information.
+
+## Contact
+
+If you have any questions or concerns, feel free to contact the author:
+
+Author: Ibrahim Gaber
+Email: ibrahimseda322@gmail.com
+
+Thank you for using the Task Client!
