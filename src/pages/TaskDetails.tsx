@@ -13,14 +13,15 @@ import Header from "../components/Header";
 import {
   Box,
   Button,
-  TextField,
+  OutlinedInput,
   Typography,
   Backdrop,
   IconButton,
+  InputAdornment,
 } from "@mui/material";
 import CreateTask from "../components/CreateTask";
 import DeleteIcon from "@mui/icons-material/Delete";
-
+import AddIcon from "@mui/icons-material/Add";
 // Component for displaying task details
 const TaskDetails = ({
   sort,
@@ -52,6 +53,18 @@ const TaskDetails = ({
   // Handles "Enter" key press for submitting comments
   const handleKeyDown = (e: any) => {
     if (e.keyCode === 13 && commentText.length > 0) {
+      dispatch(
+        comment(
+          { text: commentText, creator: user.email, name: user.name },
+          task._id
+        )
+      );
+      setCommentText("");
+    }
+  };
+  //addComment Button
+  const addComment = () => {
+    if (commentText.length > 0) {
       dispatch(
         comment(
           { text: commentText, creator: user.email, name: user.name },
@@ -159,8 +172,15 @@ const TaskDetails = ({
             Comments
           </Typography>
           {/* Comment Input */}
-          <TextField
+          <OutlinedInput
             inputProps={{ maxLength: 100 }}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton onClick={addComment}>
+                  <AddIcon fontSize="small" />
+                </IconButton>
+              </InputAdornment>
+            }
             label="Add comment..."
             name="commentText"
             value={commentText}

@@ -117,9 +117,11 @@ const CreateTask = ({
   };
   //addNote button
   const addNote = () => {
-    const newItem = { text: note, done: false };
-    setData({ ...data, content: [...data.content, newItem] });
-    setNote("");
+    if (note.length !== 0) {
+      const newItem = { text: note, done: false };
+      setData({ ...data, content: [...data.content, newItem] });
+      setNote("");
+    }
   };
 
   return (
