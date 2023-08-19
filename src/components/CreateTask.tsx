@@ -9,6 +9,9 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
+  InputAdornment,
+  IconButton,
+  OutlinedInput,
 } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
@@ -112,6 +115,12 @@ const CreateTask = ({
       setNote("");
     }
   };
+  //addNote button
+  const addNote = () => {
+    const newItem = { text: note, done: false };
+    setData({ ...data, content: [...data.content, newItem] });
+    setNote("");
+  };
 
   return (
     <>
@@ -183,9 +192,15 @@ const CreateTask = ({
               ))}
             </FormGroup>
             {/* Input for adding note */}
-            <TextField
+            <OutlinedInput
               inputProps={{ maxLength: 60 }}
-              variant="outlined"
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton onClick={addNote}>
+                    <AddIcon fontSize="small" />
+                  </IconButton>
+                </InputAdornment>
+              }
               placeholder="Take a note..."
               onKeyDown={handleKeyPressNote}
               fullWidth
