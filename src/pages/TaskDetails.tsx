@@ -181,7 +181,7 @@ const TaskDetails = ({
                 </IconButton>
               </InputAdornment>
             }
-            label="Add comment..."
+            placeholder="Add comment..."
             name="commentText"
             value={commentText}
             onKeyDown={handleKeyDown}
