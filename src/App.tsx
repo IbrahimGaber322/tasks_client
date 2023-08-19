@@ -55,11 +55,31 @@ function App() {
           <Routes>
             <Route
               path="/sign-in"
-              element={user.token ? <Navigate to="/?page=1" /> : <SignIn />}
+              element={
+                user.token ? (
+                  user.confirmed ? (
+                    <Navigate to="/?page=1" />
+                  ) : (
+                    <Navigate to="/confirm" />
+                  )
+                ) : (
+                  <SignIn />
+                )
+              }
             />
             <Route
               path="/sign-up"
-              element={user.token ? <Navigate to="/?page=1" /> : <SignUp />}
+              element={
+                user.token ? (
+                  user.confirmed ? (
+                    <Navigate to="/?page=1" />
+                  ) : (
+                    <Navigate to="/confirm" />
+                  )
+                ) : (
+                  <SignUp />
+                )
+              }
             />
             <Route
               path="/confirm/:token"
@@ -75,7 +95,17 @@ function App() {
             />
             <Route
               path="/tasks/:id"
-              element={<TaskDetails sort={sort} setSort={setSort} />}
+              element={
+                user.token ? (
+                  user.confirmed ? (
+                    <TaskDetails sort={sort} setSort={setSort} />
+                  ) : (
+                    <Confirm />
+                  )
+                ) : (
+                  <Navigate to="/sign-in" />
+                )
+              }
             />
             <Route path="/forget" element={!user.token && <Forget />} />
             <Route path="/reset/:token" element={!user.token && <Reset />} />
@@ -84,7 +114,11 @@ function App() {
               path="/search"
               element={
                 user.token ? (
-                  <Home setSort={setSort} sort={sort} />
+                  user.confirmed ? (
+                    <Home setSort={setSort} sort={sort} />
+                  ) : (
+                    <Navigate to="/confirm" />
+                  )
                 ) : (
                   <Navigate to="/sign-in" />
                 )
@@ -94,7 +128,11 @@ function App() {
               path="/"
               element={
                 user.token ? (
-                  <Home setSort={setSort} sort={sort} />
+                  user.confirmed ? (
+                    <Home setSort={setSort} sort={sort} />
+                  ) : (
+                    <Navigate to="/confirm" />
+                  )
                 ) : (
                   <Navigate to="/sign-in" />
                 )
@@ -104,7 +142,7 @@ function App() {
 
           {/* Dark mode switch */}
           <MaterialUISwitch
-            sx={{ position: "absolute", bottom: 0, right: 0, m:1 }}
+            sx={{ position: "absolute", bottom: 0, right: 0, m: 1 }}
             checked={dark}
             onChange={(e: any) => {
               setDark(e.target.checked);

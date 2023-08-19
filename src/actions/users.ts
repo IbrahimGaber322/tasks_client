@@ -47,7 +47,7 @@ export const signIn: any =
   async (dispatch: Function) => {
     try {
       const { data } = await api.signIn(user); // Call the signIn API function
-
+       console.log(data);
       if (data?.confirmed) {
         dispatch({ type: SIGNIN, payload: data }); // Dispatch action to update state with user data
         navigate("/?page=1"); // Navigate to the specified page after successful sign in
