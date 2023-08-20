@@ -94,7 +94,8 @@ function Search({
                   startAdornment: (
                     <InputAdornment position="start">
                       <IconButton
-                        sx={{ p: 0, borderRadius: 5, cursor: "default" }}
+                        sx={{ borderRadius: 5, cursor: "default" }}
+                        onClick={()=>searchTasks()}
                       >
                         <SearchIcon fontSize="medium" />
                       </IconButton>
